@@ -1,26 +1,17 @@
 pipeline {
-     agent { docker { image 'mcr.microsoft.com/playwright:v1.37.0-jammy'}}
+     agent any
      stages {
-        stage('install playwright') {
+        stage('Build') {
             steps {
-                sh '''
-                npm -i -D @playwright/test
-                npx playwright install
-                '''
+                sh 'docker build -t playwrightautomation'
             }
 
         }
-        stage('help'){
+        
+        stage('Run'){
             steps {
-                sh 'npm playwright test --help'
-            }
-        }
-        stage('test'){
-            steps {
-                sh '''
-                npx playwright test --list
-                npx playwright test
-                '''
+                sh 'docker run -it playwrightautomation npm run test'
+                
             }
         }
 
