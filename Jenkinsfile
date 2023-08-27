@@ -1,4 +1,4 @@
-pipline {
+pipeline {
      agent{
         docker {
             image 'mcr.microsoft.com/playwright:focal'
